@@ -4,42 +4,32 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Model;
 
+use App\User\Domain\ValueObjects\FirstName;
+use App\User\Domain\ValueObjects\LastName;
+use App\User\Domain\ValueObjects\UserId;
+use App\User\Domain\ValueObjects\UserName;
 use JsonSerializable;
 
 class User implements JsonSerializable
 {
-    private ?int $id;
+    public function __construct(private ?UserId $id,private UserName $username,private FirstName $firstName,private LastName $lastName) {}
 
-    private string $username;
-
-    private string $firstName;
-
-    private string $lastName;
-
-    public function __construct(?int $id, string $username, string $firstName, string $lastName)
-    {
-        $this->id = $id;
-        $this->username = strtolower($username);
-        $this->firstName = ucfirst($firstName);
-        $this->lastName = ucfirst($lastName);
-    }
-
-    public function getId(): ?int
+    public function getId(): ?UserId
     {
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getUsername(): UserName
     {
         return $this->username;
     }
 
-    public function getFirstName(): string
+    public function getFirstName(): FirstName
     {
         return $this->firstName;
     }
 
-    public function getLastName(): string
+    public function getLastName(): LastName
     {
         return $this->lastName;
     }
